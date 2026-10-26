@@ -5,6 +5,24 @@ Schiermonnikoog op boeken.taxi-schiermonnikoog.nl. Zie README.md voor opbouw en
 fasen. Taal: Nederlands, ook in de code (ritten, vaarten, sluitingen,
 spitsmodus, planbord); TypeScript.
 
+## Stand van zaken (26 oktober 2026)
+
+Fase 1 en 2 staan op main en zijn geverifieerd (npm run build groen, 27
+vitest-tests groen). Het schema (0001) en de functie boeking_maak (0002) zijn
+toegepast op het Supabase-project "Boekgoed"; het bedrijf is geseed met de
+portaalantwoorden, het adresboek met 20 plekken uit de demo (gecontroleerd =
+false). De boekingspagina werkt zonder betaling: betaalwijze chauffeur,
+maximaal 3 ritten per telefoonnummer per dag.
+
+Nog open: Vercel-project aanmaken uit deze repo (de MCP-koppeling mocht dat
+niet; handmatig via vercel.com/new, team rutgervzs-projects) met env
+SUPABASE_URL en SUPABASE_SERVICE_KEY, daarna domein boeken.taxi-schiermonnikoog.nl
+plus CNAME boeken → cname.vercel-dns.com bij Strato, en WAF rate limiting op
+POST /api/boeking. De tabel vaarten is leeg: zonder vaarschema (Wagenborg) zijn
+alleen locatieritten boekbaar. Daarna fase 3: Mollie in testmodus en sms via
+Spryng. Uit het portaal ontbreken nog: annuleringsregels, logo, iPad-gegevens,
+bedrijfsgegevens; adresboek nog ongecontroleerd.
+
 ## Regels
 
 De service-sleutel van Supabase komt nooit in de browser of in de repo; alle
