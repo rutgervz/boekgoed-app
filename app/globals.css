@@ -8,6 +8,7 @@
   --wit: #ffffff;
   --wad: #2f7d4f;
   --boei: #d64545;
+  --stil: #67727e;
 }
 * { box-sizing: border-box; }
 body {
@@ -15,4 +16,427 @@ body {
   background: var(--zand);
   color: var(--inkt);
   font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+button:disabled { cursor: not-allowed; }
+:focus-visible {
+  outline: 3px solid var(--zee);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Pagina-opbouw ---------- */
+
+.pagina {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 16px 150px;
+}
+.kop-merk {
+  margin: 0;
+  min-height: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--zee);
+}
+.pagina h1 {
+  margin: 4px 0 16px;
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--zee);
+}
+
+.stappen { margin: 0 0 16px; }
+.stappen-tekst {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--stil);
+}
+.stappen-balkjes { display: flex; gap: 6px; }
+.stapbalkje {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--lijn);
+}
+.stapbalkje.gedaan { background: var(--zee); }
+
+.kaart {
+  background: var(--wit);
+  border: 1px solid var(--lijn);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 0 0 14px;
+}
+.kaart h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: var(--zee);
+}
+.uitleg {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--stil);
+}
+.stil {
+  font-size: 15px;
+  color: var(--stil);
+}
+
+/* ---------- Keuzeknoppen (radiogroep) ---------- */
+
+.keuzes {
+  border: 0;
+  margin: 0 0 6px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.keuzes legend {
+  padding: 0;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.keuze {
+  position: relative;
+  display: block;
+  border: 1.5px solid var(--lijn);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: var(--wit);
+  cursor: pointer;
+}
+.keuze input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.keuze.gekozen {
+  border-color: var(--zee);
+  box-shadow: inset 0 0 0 1px var(--zee);
+}
+.keuze:has(input:focus-visible) {
+  outline: 3px solid var(--zee);
+  outline-offset: 2px;
+}
+.keuze-titel { display: block; font-weight: 600; }
+.keuze-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--stil);
+}
+
+/* ---------- Stepper en schakelaar ---------- */
+
+.stepper,
+.schakelaar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 0;
+  border-top: 1px solid var(--lijn);
+  text-align: left;
+}
+.stepper-label,
+.schakelaar-titel { display: block; font-weight: 600; }
+.stepper-uitleg,
+.schakelaar-sub {
+  display: block;
+  font-size: 14px;
+  color: var(--stil);
+}
+.stepper-knoppen {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+.stepper-knoppen button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--zee);
+  border-radius: 10px;
+  background: var(--wit);
+  color: var(--zee);
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 700;
+}
+.stepper-knoppen button:disabled {
+  border-color: var(--lijn);
+  color: var(--lijn);
+}
+.stepper-waarde {
+  min-width: 44px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+.schakelaar-dop {
+  flex: none;
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--lijn);
+  position: relative;
+  transition: background 0.15s ease;
+}
+.schakelaar-dop::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--wit);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease;
+}
+.schakelaar[aria-checked="true"] .schakelaar-dop { background: var(--wad); }
+.schakelaar[aria-checked="true"] .schakelaar-dop::after { transform: translateX(20px); }
+
+/* ---------- Tijdkeuze: kwartierslots en vaarten ---------- */
+
+.slotraster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+}
+.slot {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  padding: 9px 4px;
+  border: 1.5px solid var(--lijn);
+  border-radius: 10px;
+  background: var(--wit);
+  font-weight: 600;
+}
+.slot-status {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--stil);
+}
+.slot:disabled {
+  background: var(--zand);
+  color: var(--stil);
+}
+.slot.vol:disabled .slot-status { color: var(--boei); }
+.slot.gekozen {
+  border-color: var(--zee);
+  background: var(--zee);
+  color: var(--wit);
+}
+.slot.gekozen .slot-status { color: var(--wit); }
+
+.vaartlijst { display: grid; gap: 8px; }
+.vaart {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 2px 12px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--lijn);
+  border-radius: 10px;
+  background: var(--wit);
+  text-align: left;
+}
+.vaart-tijd { font-size: 18px; font-weight: 700; }
+.vaart-dienst { font-size: 14px; color: var(--stil); }
+.vaart-reden {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--boei);
+}
+.vaart:disabled { background: var(--zand); }
+.vaart:disabled .vaart-tijd { color: var(--stil); }
+.vaart.gekozen {
+  border-color: var(--zee);
+  box-shadow: inset 0 0 0 1px var(--zee);
+}
+
+/* ---------- Formuliervelden ---------- */
+
+.veld { display: block; margin: 0 0 14px; }
+.veld-label {
+  display: block;
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+.veld-uitleg {
+  display: block;
+  margin: -2px 0 6px;
+  font-size: 14px;
+  color: var(--stil);
+}
+.veld input,
+.veld select,
+.veld textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1.5px solid var(--lijn);
+  border-radius: 10px;
+  background: var(--wit);
+  color: var(--inkt);
+  font: inherit;
+}
+.veld textarea { resize: vertical; }
+
+/* ---------- Overzicht en prijsregels ---------- */
+
+.overzicht {
+  margin: 0 0 16px;
+  display: grid;
+  gap: 8px;
+}
+.overzicht > div {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 8px;
+}
+.overzicht dt {
+  font-size: 15px;
+  color: var(--stil);
+}
+.overzicht dd {
+  margin: 0;
+  /* Lange ononderbroken waarden (e-mailadres, telefoonnummer) breken binnen de
+     kaart af in plaats van horizontale scroll te geven op een smal scherm. */
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.prijsregels {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.prijsregels li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-top: 1px solid var(--lijn);
+}
+.prijsregels-totaal { font-weight: 700; }
+
+/* ---------- Meldingen en knoppen ---------- */
+
+.melding {
+  border: 1.5px solid var(--boei);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0 0 14px;
+  background: var(--wit);
+  background: color-mix(in srgb, var(--boei) 7%, var(--wit));
+}
+.melding p { margin: 0; }
+.melding p + button { margin-top: 10px; }
+
+.knop {
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 700;
+}
+.knop-primair {
+  background: var(--zee);
+  color: var(--wit);
+}
+.knop-primair:disabled { opacity: 0.45; }
+.knop-secundair {
+  border: 1.5px solid var(--zee);
+  background: var(--wit);
+  color: var(--zee);
+}
+.knop-klein {
+  padding: 8px 12px;
+  border: 1.5px solid var(--zee);
+  border-radius: 8px;
+  background: var(--wit);
+  color: var(--zee);
+  font-weight: 600;
+}
+
+.bevestiging h2 { color: var(--wad); }
+
+/* ---------- Vaste prijsbalk onderin ---------- */
+
+.prijsbalk {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--wit);
+  border-top: 1px solid var(--lijn);
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+}
+.prijsbalk-binnen {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.prijsbalk-label {
+  display: block;
+  font-size: 12px;
+  color: var(--stil);
+}
+.prijsbalk-bedrag {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--zee);
+}
+.prijsbalk-knoppen {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Voettekst ---------- */
+
+.voettekst {
+  margin: 24px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--lijn);
+  font-size: 15px;
+  color: var(--stil);
+}
+.voettekst p { margin: 0 0 4px; }
+.voettekst-naam {
+  font-weight: 700;
+  color: var(--zee);
+}
+.voettekst a {
+  color: var(--zee);
+  font-weight: 600;
+}
+
+/* ---------- Breder scherm ---------- */
+
+@media (min-width: 720px) {
+  .pagina {
+    max-width: 640px;
+    padding-top: 40px;
+  }
+  .prijsbalk-binnen { max-width: 640px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
