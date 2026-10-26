@@ -1,0 +1,18 @@
+/* Huisstijl van de klant (Taxi Schiermonnikoog); de app zelf is merkloos.
+   Kleuren komen uit instellingen.huisstijl; dit zijn de standaardwaarden. */
+:root {
+  --zee: #123144;
+  --inkt: #1f2d3a;
+  --zand: #f5f4ef;
+  --lijn: #e1ded4;
+  --wit: #ffffff;
+  --wad: #2f7d4f;
+  --boei: #d64545;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--zand);
+  color: var(--inkt);
+  font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
